@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chills & Thrills - Horror & Love Stories Platform</title>
+    <!-- Google AdSense Verification Placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxxxx" crossorigin="anonymous"></script> -->
+    <style>
+        :root {
+            --bg-dark: #0b0b0e;
+            --card-bg: #16161b;
+            --card-hover: #1f1f26;
+            --accent-horror: #ff5000; /* Wattpad Orange */
+            --accent-romance: #ff477e; /* Soft Rose Pink */
+            --text-light: #f1f1f3;
+            --text-gray: #9ba1a6;
+            --border-color: #272730;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Modern Navbar (Responsive) */
+        nav {
+            background-color: rgba(11, 11, 14, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--accent-horror);
+            font-size: 22px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo span {
+            color: var(--accent-romance);
+        }
+
+        .search-bar {
+            flex: 0 1 300px;
+            background: #131318;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 8px 15px;
+            color: white;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-horror);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            max-width: 1200px;
+            margin: 25px auto 10px auto;
+            padding: 0 20px;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #1b1318 0%, #111116 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-tag {
+            background-color: rgba(255, 79, 126, 0.15);
+            color: var(--accent-romance);
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            align-self: flex-start;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .hero-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            max-width: 700px;
+        }
+
+        .btn-read-hero {
+            background: linear-gradient(135deg, var(--accent-horror), var(--accent-romance));
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            width: fit-content;
+            margin-top: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-read-hero:hover {
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Responsive Grid Layout (Auto-fit for phones & desktops) */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .story-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-card:hover {
+            transform: translateY(-3px);
+            border-color: #444455;
+            background-color: var(--card-hover);
+        }
+
+        .story-cover-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-color: #1a1a1f;
+        }
+
+        .story-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-horror { background-color: var(--accent-horror); color: white; }
+        .badge-romance { background-color: var(--accent-romance); color: white; }
+        .badge-covid { background-color: #7b2cbf; color: white; }
+
+        .story-info {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .story-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-author {
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+
+        .story-meta {
+            font-size: 10px;
+            color: var(--text-gray);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 6px;
+        }
+
+        /* AdSense Box */
+        .adsense-box {
+            background-color: #121217;
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 10px;
+            color: var(--text-gray);
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #070709;
+            border-top: 1px solid var(--border-color);
+            padding: 35px 20px;
+            color: var(--text-gray);
+            font-size: 12px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-horror);
+        }
+
+        /* Media Queries for Mobile Adjustments */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-bar {
+                width: 100%;
+                flex: none;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 13px;
+            }
+
+            .hero-card {
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 22px;
+            }
+
+            .stories-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns para saktong kita sa mobile */
+                gap: 12px;
+            }
+
+            .story-cover-wrapper {
+                height: 190px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modern Responsive Navbar -->
+    <nav>
+        <a href="index.html" class="logo">Chills <span>&</span> Thrills</a>
+        <input type="text" class="search-bar" placeholder="Search stories, authors, or languages...">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Featured Banner -->
+    <header class="hero-banner">
+        <div class="hero-card">
+            <span class="hero-tag">💖 Featured Love Story</span>
+            <h1 class="hero-title">Sa Gitna ng Quarantine Lockdown</h1>
+            <p class="hero-desc">Isang kwento ng pag-ibig na nabuo sa pamamagitan lamang ng isang maling tawag at online chat noong kasagsagan ng 2020 pandemic. Paano kung ang tanging mundo mo ay ang taong hindi mo pa kailanman nakikita nang personal?</p>
+            <a href="story.html" class="btn-read-hero">▶ Start Reading</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Section 1: Horror & Urban Legends -->
+        <div class="section-header">
+            <h2 class="section-title">💀 Horror & Urban Legends</h2>
+        </div>
+        <div class="stories-grid">
+            
+            <div class="story-card" onclick="location.href='story.html'">
+                <div class="story-cover-wrapper">
+                    <span class="card-badge badge-horror">Horror</span>
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80" alt="Cover" class="story-cover">
+                </div>
+                <div class="story-info">
+                    <div>
+                        <h3 class="story-title">The Midnight Train to Nowhere</h3>
+                        <p class="story-author">By Anonymous</p>
+                    </div>
+                    <div class="story-meta">
+                        <span>👁 45.2K</span>
+                        <span>⭐ 3.8K</span>
+                        <span>Eng</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-cover-wrapper">
+                    <span class="card-badge badge-horror">Horror</span>
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=500&q=80" alt="Cover" class="story-cover">
+                </div>
+                <div class="story-info">
+                    <div>
+                        <h3 class="story-title">Ang Multo sa Lumang Aparador</h3>
+                        <p class="story-author">By Maria S.</p>
+                    </div>
+                    <div class="story-meta">
+                        <span>👁 89.1K</span>
+                        <span>⭐ 7.2K</span>
+                        <span>Tagalog</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- AdSense Homepage Banner 1 -->
+        <div class="adsense-box">
+            <p>[ Google AdSense Responsive Banner Unit ]</p>
+        </div>
+
+        <!-- Section 2: Romance & COVID-19 Tales -->
+        <div class="section-header">
+            <h2 class="section-title">💖 Romance & Pandemic Memories</h2>
+        </div>
+        <div class="stories-grid">
+            
+            <div class="story-card">
+                <div class="story-cover-wrapper">
+                    <span class="card-badge badge-covid">COVID Era</span>
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=500&q=80" alt="Cover" class="story-cover">
+                </div>
+                <div class="story-info">
+                    <div>
+                        <h3 class="story-title">Neighbor sa Kabilang Balcony</h3>
+                        <p class="story-author">By JC Reyes</p>
+                    </div>
+                    <div class="story-meta">
+                        <span>👁 32.1K</span>
+                        <span>⭐ 4.5K</span>
+                        <span>Tagalog</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-cover-wrapper">
+                    <span class="card-badge badge-romance">Romance</span>
+                    <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=500&q=80" alt="Cover" class="story-cover">
+                </div>
+                <div class="story-info">
+                    <div>
+                        <h3 class="story-title">The 2:00 AM Coffee Chat</h3>
+                        <p class="story-author">By Elena Vance</p>
+                    </div>
+                    <div class="story-meta">
+                        <span>👁 18.9K</span>
+                        <span>⭐ 1.9K</span>
+                        <span>English</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- AdSense Homepage Banner 2 -->
+        <div class="adsense-box">
+            <p>[ Google AdSense Footer Banner Unit ]</p>
+        </div>
+
+    </main>
+
+    <!-- Footer with Gmail Contact & AdSense Compliance Links -->
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact / Submit via Gmail</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <p>Send your true horror or love stories to: <strong>chillsandthrills.stories@gmail.com</strong></p>
+        <p style="margin-top: 8px;">&copy; 2026 Chills & Thrills. All rights reserved.</p>
+    </footer>
+
+</body>
+</html> 
